@@ -1,0 +1,32 @@
+{
+  "name": "tessek-exchange",
+  "version": "0.0.0",
+  "description": "My praiseworthy module",
+  "license": "MIT",
+  "repository": "mastilver/tessek-exchange",
+  "author": {
+    "name": "Thomas Sileghem",
+    "email": "th.sileghem@gmail.com",
+    "url": "github.com/mastilver"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    ""
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.2",
+    "coveralls": "^2.11.2",
+    "nyc": "^2.3.0"
+  }
+}
