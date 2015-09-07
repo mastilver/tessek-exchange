@@ -24,9 +24,10 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "mocha": "^2.2.5",
-    "should": "^7.0.2",
     "coveralls": "^2.11.2",
-    "nyc": "^2.3.0"
+    "mocha": "^2.2.5",
+    "nyc": "^2.3.0",
+    "should": "^7.0.2",
+    "sinon": "^1.16.1"
   }
 }
