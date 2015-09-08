@@ -22,9 +22,6 @@ describe('when sending sell', function(){
     });
 
     it('should sell', function(){
-
-
-
         exchange.sell.called.should.be.ok();
     });
 });

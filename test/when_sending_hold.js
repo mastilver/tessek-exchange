@@ -22,8 +22,11 @@ describe('when sending hold', function(){
         .then(done);
     });
 
-    it('should not do anything', function(){
+    it('should not buy', function(){
         exchange.buy.called.should.not.be.ok();
+    });
+
+    it('should not sell', function(){
         exchange.sell.called.should.not.be.ok();
     });
 });
