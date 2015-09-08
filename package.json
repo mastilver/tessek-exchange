@@ -22,7 +22,9 @@
   "keywords": [
     ""
   ],
-  "dependencies": {},
+  "dependencies": {
+    "promise": "^7.0.4"
+  },
   "devDependencies": {
     "coveralls": "^2.11.2",
     "mocha": "^2.2.5",

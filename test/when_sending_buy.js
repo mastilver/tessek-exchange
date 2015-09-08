@@ -1,18 +1,27 @@
+'use strict';
+
 require('should');
 var sinon = require('sinon');
+
+var Promise = require('promise');
 
 var exchangeHandler = require('../index');
 
 describe('when sending buy', function(){
 
-    it('should buy', function(){
+    var exchange;
 
-        var exchange = {
-            buy: sinon.spy()
+    before(function(done){
+        exchange = {
+            buy: sinon.spy(),
+            getOpenOrders: sinon.stub().returns(Promise.resolve([]))
         };
 
-        exchangeHandler(exchange)('buy');
+        exchangeHandler(exchange)('buy')
+        .then(done);
+    });
 
+    it('should buy', function(){
         exchange.buy.called.should.be.ok();
     });
 });

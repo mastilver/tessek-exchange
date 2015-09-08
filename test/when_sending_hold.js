@@ -1,22 +1,28 @@
+'use strict';
+
 require('should');
 var sinon = require('sinon');
+
+var Promise = require('promise');
 
 var exchangeHandler = require('../index');
 
 describe('when sending hold', function(){
 
-    it('should not do anything', function(){
+    var exchange;
 
-        var exchange = {
+    before(function(done){
+        exchange = {
             buy: sinon.spy(),
             sell: sinon.spy(),
-            getOpenOrders: null,
-            cancelOrder: null,
-            getPortfolio: null,
+            getOpenOrders: sinon.stub().returns(Promise.resolve([]))
         };
 
-        exchangeHandler(exchange)('hold');
+        exchangeHandler(exchange)('hold')
+        .then(done);
+    });
 
+    it('should not do anything', function(){
         exchange.buy.called.should.not.be.ok();
         exchange.sell.called.should.not.be.ok();
     });
