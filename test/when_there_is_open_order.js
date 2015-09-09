@@ -24,7 +24,7 @@ describe('when there is open order', function(){
         };
 
         exchangeHandler(exchange)('buy')
-        .then(done);
+        .nodeify(done);
     });
 
     it('should get open orders', function(){

@@ -24,7 +24,7 @@ describe('when sending buy', function(){
         };
 
         exchangeHandler(exchange)('buy', 100)
-        .then(done);
+        .nodeify(done);
     });
 
     it('should buy once', function(){

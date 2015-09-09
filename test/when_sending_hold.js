@@ -25,7 +25,7 @@ describe('when sending hold', function(){
         };
 
         exchangeHandler(exchange)('hold')
-        .then(done);
+        .nodeify(done);
     });
 
     it('should not buy', function(){

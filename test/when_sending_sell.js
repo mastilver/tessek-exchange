@@ -24,7 +24,7 @@ describe('when sending sell', function(){
         };
 
         exchangeHandler(exchange)('sell', 100)
-        .then(done);
+        .nodeify(done);
     });
 
     it('should sell', function(){

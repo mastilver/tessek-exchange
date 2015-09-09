@@ -8,7 +8,7 @@ module.exports = function (exchange) {
 
     return function(action, price){
 
-        return exchange.getOpenOrders()
+        return Promise.resolve(exchange.getOpenOrders())
         .then(function(openOrders){
 
             var promises = openOrders.map(function(openOrder){
@@ -26,11 +26,11 @@ module.exports = function (exchange) {
 
             if(action === 'buy'){
                 assetAmount = portfolio[exchange.getCurrencyName()] / price;
-                exchange.buy(assetAmount, price);
+                return exchange.buy(assetAmount, price);
             }
             else if(action === 'sell'){
                 assetAmount = portfolio[exchange.getAssetName()];
-                exchange.sell(assetAmount, price);
+                return exchange.sell(assetAmount, price);
             }
         });
     };
