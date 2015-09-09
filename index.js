@@ -21,15 +21,16 @@ module.exports = function (exchange) {
             return exchange.getPorfolio();
         })
         .then(function(portfolio){
-            return portfolio[exchange.getCurrencyName()] / price;
-        })
-        .then(function(amount){
+
+            var assetAmount;
 
             if(action === 'buy'){
-                exchange.buy(amount, price);
+                assetAmount = portfolio[exchange.getCurrencyName()] / price;
+                exchange.buy(assetAmount, price);
             }
             else if(action === 'sell'){
-                exchange.sell();
+                assetAmount = portfolio[exchange.getAssetName()];
+                exchange.sell(assetAmount, price);
             }
         });
     };

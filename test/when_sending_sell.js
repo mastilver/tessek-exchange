@@ -23,11 +23,15 @@ describe('when sending sell', function(){
             getAssetName: sinon.stub().returns('btc'),
         };
 
-        exchangeHandler(exchange)('sell')
+        exchangeHandler(exchange)('sell', 100)
         .then(done);
     });
 
     it('should sell', function(){
-        exchange.sell.called.should.be.ok();
+        sinon.assert.calledOnce(exchange.sell);
+    });
+
+    it('should buy with the correct value', function(){
+        sinon.assert.calledWith(exchange.sell, 1, 100);
     });
 });
