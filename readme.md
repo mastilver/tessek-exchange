@@ -27,7 +27,7 @@ exchangeHandler('buy')
 
 ## API
 
-### tessekExchange(exchangeObject)(action)
+### tessekExchange(exchangeObject)(action, price)
 
 #### exchangeObject
 
@@ -41,7 +41,13 @@ Type: `Object`
 Type: `string`  
 Possible Values: `buy`, `sell`, `hold`
 
-Which action should we perform
+Which action we should perform
+
+#### price
+
+Type: 'float'
+
+At which price we should buy/sell
 
 
 ## License

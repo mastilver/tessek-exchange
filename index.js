@@ -6,7 +6,7 @@ var Promise = require('promise');
 module.exports = function (exchange) {
 
 
-    return function(action){
+    return function(action, price){
 
         return exchange.getOpenOrders()
         .then(function(openOrders){
@@ -18,9 +18,15 @@ module.exports = function (exchange) {
             return Promise.all(promises);
         })
         .then(function(){
+            return exchange.getPorfolio();
+        })
+        .then(function(portfolio){
+            return portfolio[exchange.getCurrencyName()] / price;
+        })
+        .then(function(amount){
 
             if(action === 'buy'){
-                exchange.buy();
+                exchange.buy(amount, price);
             }
             else if(action === 'sell'){
                 exchange.sell();

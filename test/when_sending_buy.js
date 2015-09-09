@@ -14,14 +14,24 @@ describe('when sending buy', function(){
     before(function(done){
         exchange = {
             buy: sinon.spy(),
-            getOpenOrders: sinon.stub().returns(Promise.resolve([]))
+            getOpenOrders: sinon.stub().returns(Promise.resolve([])),
+            getPorfolio: sinon.stub().returns(Promise.resolve({
+                usd: 55,
+                btc: 1
+            })),
+            getCurrencyName: sinon.stub().returns('usd'),
+            getAssetName: sinon.stub().returns('btc'),
         };
 
-        exchangeHandler(exchange)('buy')
+        exchangeHandler(exchange)('buy', 100)
         .then(done);
     });
 
-    it('should buy', function(){
-        exchange.buy.called.should.be.ok();
+    it('should buy once', function(){
+        sinon.assert.calledOnce(exchange.buy);
+    });
+
+    it('should buy with the correct value', function(){
+        sinon.assert.calledWith(exchange.buy, 55 / 100, 100);
     });
 });

@@ -15,6 +15,12 @@ describe('when there is open order', function(){
             sell: sinon.spy(),
             getOpenOrders: sinon.stub().returns(Promise.resolve(['orderId1', 'orderId2'])),
             cancelOrder: sinon.spy(),
+            getPorfolio: sinon.stub().returns(Promise.resolve({
+                usd: 55,
+                btc: 1
+            })),
+            getCurrencyName: sinon.stub().returns('usd'),
+            getAssetName: sinon.stub().returns('btc'),
         };
 
         exchangeHandler(exchange)('buy')
