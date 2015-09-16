@@ -13,6 +13,7 @@ describe('when there is open order', function(){
         exchange = {
             buy: sinon.spy(),
             sell: sinon.spy(),
+            getFee: sinon.stub().returns(0),
             getOpenOrders: sinon.stub().returns(Promise.resolve(['orderId1', 'orderId2'])),
             cancelOrder: sinon.spy(),
             getPorfolio: sinon.stub().returns(Promise.resolve({

@@ -15,6 +15,7 @@ describe('when sending hold', function(){
         exchange = {
             buy: sinon.spy(),
             sell: sinon.spy(),
+            getFee: sinon.stub().returns(0),
             getOpenOrders: sinon.stub().returns(Promise.resolve([])),
             getPorfolio: sinon.stub().returns(Promise.resolve({
                 usd: 55,
