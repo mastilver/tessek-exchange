@@ -8,40 +8,61 @@ module.exports = function (exchange) {
 
     return function(action, price){
 
-        return Promise.resolve(exchange.getOpenOrders())
-        .then(function(openOrders){
-
-            var promises = openOrders.map(function(openOrder){
-                return exchange.cancelOrder(openOrder);
-            });
-
-            return Promise.all(promises);
+        return Promise.resolve({
+            action: action,
+            price: price,
         })
-        .then(function(){
-            return exchange.getPorfolio();
-        })
-        .then(function(portfolio){
+        .then(function(data) {
+            return Promise.resolve(exchange.getOpenOrders())
+                .then(function(openOrders){
+                    var promises = openOrders.map(function(openOrder){
+                        return exchange.cancelOrder(openOrder);
+                    });
 
-            if(action === 'buy'){
-                return portfolio[exchange.getCurrencyName()] / price;
-            }
-            else if(action === 'sell'){
-                return portfolio[exchange.getAssetName()];
-            }
-        })
-        .then(function(assetAmount){
-            return Promise.resolve(exchange.getFee(assetAmount))
-                .then(function(fee){
-                    return assetAmount * (1 - (fee / 100));
+                    return Promise.all(promises);
+                })
+                .then(function(){
+                    return data;
                 });
         })
-        .then(function (assetAmount) {
+        .then(function(data){
+            return exchange.getPorfolio()
+                .then(function(portfolio){
+                    data.portfolio = portfolio;
+                    return data;
+                });
+        })
+        .then(function(data){
+
+            var assetAmount;
+
             if(action === 'buy'){
-                return exchange.buy(assetAmount, price);
+                assetAmount = data.portfolio[exchange.getCurrencyName()] / data.price;
             }
             else if(action === 'sell'){
-                return exchange.sell(assetAmount, price);
+                assetAmount = data.portfolio[exchange.getAssetName()];
             }
+
+            return Promise.resolve(exchange.getFee(assetAmount))
+                .then(function(fee){
+                    data.fee = fee;
+                    return assetAmount * (1 - (fee / 100));
+                })
+                .then(function(assetAmount){
+                    data.assetAmount = assetAmount;
+                    return data;
+                });
+        })
+        .then(function (data) {
+
+            if(data.action !== 'buy' && data.action !== 'sell'){
+                return data;
+            }
+
+            return exchange[data.action](data.assetAmount, data.price)
+                .then(function(){
+                    return data;
+                });
         });
     };
 };

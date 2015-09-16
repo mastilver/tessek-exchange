@@ -11,8 +11,8 @@ describe('when there is open order', function(){
 
     before(function(done){
         exchange = {
-            buy: sinon.spy(),
-            sell: sinon.spy(),
+            buy: sinon.stub().returns(Promise.resolve()),
+            sell: sinon.stub().returns(Promise.resolve()),
             getFee: sinon.stub().returns(0),
             getOpenOrders: sinon.stub().returns(Promise.resolve(['orderId1', 'orderId2'])),
             cancelOrder: sinon.spy(),

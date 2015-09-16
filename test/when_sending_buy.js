@@ -13,7 +13,7 @@ describe('when sending buy', function(){
 
     before(function(done){
         exchange = {
-            buy: sinon.spy(),
+            buy: sinon.stub().returns(Promise.resolve()),
             getFee: sinon.stub().returns(0),
             getOpenOrders: sinon.stub().returns(Promise.resolve([])),
             getPorfolio: sinon.stub().returns(Promise.resolve({
@@ -43,7 +43,7 @@ describe('when sending buy with fee', function(){
 
     before(function(done){
         exchange = {
-            buy: sinon.spy(),
+            buy: sinon.stub().returns(Promise.resolve()),
             getFee: sinon.stub().returns(5),
             getOpenOrders: sinon.stub().returns(Promise.resolve([])),
             getPorfolio: sinon.stub().returns(Promise.resolve({
