@@ -3,7 +3,7 @@
 require('should');
 var sinon = require('sinon');
 
-var Promise = require('promise');
+var Promise = require('pinkie-promise');
 
 var exchangeHandler = require('../index');
 
@@ -11,7 +11,7 @@ describe('when sending sell', function(){
 
     var exchange;
 
-    before(function(done){
+    before(function(){
         exchange = {
             sell: sinon.stub().returns(Promise.resolve()),
             getFee: sinon.stub().returns(0),
@@ -24,8 +24,7 @@ describe('when sending sell', function(){
             getAssetName: sinon.stub().returns('btc'),
         };
 
-        exchangeHandler(exchange)('sell', 100)
-        .nodeify(done);
+        return exchangeHandler(exchange)('sell', 100);
     });
 
     it('should sell', function(){
@@ -41,7 +40,7 @@ describe('when sending sell with fee', function(){
 
     var exchange;
 
-    before(function(done){
+    before(function(){
         exchange = {
             sell: sinon.stub().returns(Promise.resolve()),
             getFee: sinon.stub().returns(5),
@@ -54,8 +53,7 @@ describe('when sending sell with fee', function(){
             getAssetName: sinon.stub().returns('btc'),
         };
 
-        exchangeHandler(exchange)('sell', 100)
-        .nodeify(done);
+        return exchangeHandler(exchange)('sell', 100);
     });
 
     it('should sell', function(){

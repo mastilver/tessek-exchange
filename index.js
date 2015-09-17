@@ -1,6 +1,6 @@
 'use strict';
 
-var Promise = require('promise');
+var Promise = require('pinkie-promise');
 
 
 module.exports = function (exchange) {

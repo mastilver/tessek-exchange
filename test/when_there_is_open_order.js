@@ -1,7 +1,7 @@
 require('should');
 var sinon = require('sinon');
 
-var Promise = require('promise');
+var Promise = require('pinkie-promise');
 
 var exchangeHandler = require('../index');
 
@@ -9,7 +9,7 @@ describe('when there is open order', function(){
 
     var exchange;
 
-    before(function(done){
+    before(function(){
         exchange = {
             buy: sinon.stub().returns(Promise.resolve()),
             sell: sinon.stub().returns(Promise.resolve()),
@@ -24,8 +24,7 @@ describe('when there is open order', function(){
             getAssetName: sinon.stub().returns('btc'),
         };
 
-        exchangeHandler(exchange)('buy')
-        .nodeify(done);
+        return exchangeHandler(exchange)('buy');
     });
 
     it('should get open orders', function(){
