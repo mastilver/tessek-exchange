@@ -32,7 +32,7 @@ module.exports = function (exchange) {
     }
 
     function getPorfolio(data){
-        return exchange.getPorfolio()
+        return Promise.resolve(exchange.getPorfolio())
             .then(function(portfolio){
                 data.portfolio = portfolio;
                 return data;
@@ -67,7 +67,7 @@ module.exports = function (exchange) {
             return data;
         }
 
-        return exchange[data.action](data.assetAmount, data.price)
+        return Promise.resolve(exchange[data.action](data.assetAmount, data.price))
             .then(function(){
                 return data;
             });
