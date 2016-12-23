@@ -23,13 +23,13 @@
     ""
   ],
   "dependencies": {
-    "pinkie-promise": "^1.0.0"
+    "pinkie-promise": "^2.0.1"
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
-    "mocha": "^2.2.5",
-    "nyc": "^2.3.0",
-    "should": "^7.0.2",
+    "mocha": "^3.2.0",
+    "nyc": "^10.0.0",
+    "should": "^11.1.2",
     "sinon": "^1.16.1"
   }
 }
